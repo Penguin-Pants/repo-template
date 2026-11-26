@@ -14,3 +14,7 @@ AGENTS.md is the common instruction entry point; CLAUDE.md imports it. Detailed 
 
 ## Maintenance
 Update shared standards in this repository first, then propose changes in downstream repositories. Preserve project-specific content. Never publish private configuration or credentials.
+
+## Agent skills
+
+22 shared skills are installed for Codex and Claude Code. Edit canonical files under `.agents/skills/`, run `python scripts/sync-skills.py`, then `python scripts/validate-skills.py`. See `.agents/skills/README.md` and `docs/skill-evaluations.md`. Behavioral evaluations are defined but not yet executed.

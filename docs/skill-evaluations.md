@@ -1,0 +1,3 @@
+# Behavioral skill evaluation
+
+The 110 cases in skill-evaluations.json are planned tests, not executed results. Run each in a clean Claude Code and Codex context with a representative disposable repository and no real secrets or production permissions. Record agent/version, fixture, requested outcome, actual selected skill, actions, evidence, pass/fail and deviations. For boundary cases specify the fixture and expected primary skill before running. Inspect actual edits and Git operations, not only the response. Re-run failed cases and a passing regression after revisions. Static CI checks metadata, parity, local skill references and case coverage, not behavior.

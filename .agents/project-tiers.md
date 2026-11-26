@@ -1,6 +1,6 @@
 # Project tiers (proposed)
 
-Confirm tier with owner. Do not infer from size alone. Escalate for sensitive data, irreversible changes or production exposure.
+Confirm tier with owner only when it materially affects validation, security or release requirements. Continue evidence gathering when unassigned; apply risk-based safeguards. Do not infer from size alone. Escalate for sensitive data, irreversible changes or production exposure.
 
 | Tier | Scope | Minimum validation and documents |
 |---|---|---|
