@@ -1,11 +1,12 @@
 # Agent instructions
 
-Conventions version: 2.0
+Conventions version: 2.1
 Project name: TODO
 Project tier: unassigned
 Status: planning
 
 ## Project context
+Confirm tier only when it materially changes validation, security or release requirements. Continue evidence gathering if unassigned; apply risk-based safeguards.
 Complete the purpose, scope, users, stack, commands, key paths, environment variable names, reference implementations and constraints before implementation. Use docs/project-context.md. Do not invent missing details.
 
 ## Communication
@@ -28,11 +29,22 @@ Complete the purpose, scope, users, stack, commands, key paths, environment vari
 - Test observable behavior and meaningful failure paths. Scale depth to tier and risk. Unit test significant public functions when feature tests do not cover them. Add regression tests for bugs and integration tests for feature slices.
 - Read .agents/conventions.md for detailed engineering standards and .agents/project-tiers.md for proposed tier requirements.
 
+## Authorization and decision checkpoints
+- Analyze: inspect, verify and report; no repository edits. Default for reviews, audits, assessments and diagnosis requests without a fix request.
+- Implement: make authorized in-scope changes, validate and prepare a PR. Commit, push and create/update a PR only when authorized by the user or approved workflow; merge needs authorization.
+- Deliver: execute the explicitly approved end-to-end scope and Git operations. Do not infer deployment, release, destructive operations or merge authorization.
+- Resolve inputs from the request and repository context first. Use conventional paths only as search hints. Ask only for essential missing information.
+- DECISION CHECKPOINT: state the decision, evidence, viable options, trade-offs and recommended option. Ask the owner, stop only affected work and continue independent authorized work. Required for unresolved material product/security decisions or scope expansion, not routine engineering decisions. Approval of an explicit batch scope covers its individual in-scope tasks.
+
+## Skills
+Choose the most specific skill for the requested outcome. Explicit invocation takes precedence within authorized scope. Load supporting skills only for relevant subtasks; do not switch the overall workflow or expand authorization. See .agents/skills/README.md. For requirements discovery, use discovering-requirements as the canonical procedure.
+
 ## Two-pass review
-After tests pass and before commit, review the complete diff.
-1. Correctness: trace real callers, error paths, edge cases, platform differences, security, accessibility and acceptance criteria.
-2. Simplicity: challenge each finding against evidence, remove unnecessary complexity and reuse existing patterns.
-Classify findings: F1 blocking (fix before commit), F2 in scope (fix now), F3 outside scope (propose and record), F4 rejected (record reason). A decision checkpoint stops affected work until the owner resolves it. Rerun validation and report outcomes.
+TWO-PASS REVIEW has two variants:
+- Implementation: after relevant tests pass and before commit. Pass 1 traces real callers, error paths, edge cases, platform differences, security, accessibility and acceptance criteria. Pass 2 challenges findings, removes unnecessary complexity and reuses existing patterns. Rerun validation after fixes.
+- Analysis: before finalizing a report, specification, plan or assessment. Pass 1 checks completeness, accuracy, scope and evidence. Pass 2 challenges assumptions, findings and recommendations against sources, separates unverified risks and removes unsupported claims. Do not edit code as part of analysis.
+Classify findings independently of severity: F1 blocking in authorized scope (fix before commit), F2 other in-scope defect (fix now), F3 outside scope (propose and record), F4 rejected (record reason). For analysis, F1/F2 identify recommended action if implementation is later authorized; do not imply permission to edit. Record evidence and outcomes.
+Severity: Critical = severe security exposure, irreversible data loss or fundamental system failure; High = major functionality, security or reliability defect; Medium = material but limited impact; Low = minor defect or localized quality issue. Consider realistic impact and likelihood; separate confirmed findings from possible risks. Severity is not disposition (a Critical issue may be F3).
 
 ## Git and release
 - Inspect status, current branch and existing changes before edits. Preserve unrelated user work.
