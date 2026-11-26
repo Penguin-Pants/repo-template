@@ -1,0 +1,3 @@
+# Synchronization ownership (initial contract)
+
+Only exact paths listed in `.agents/ownership.json` are candidates for recurring synchronization. Unlisted paths are project-owned. Root AGENTS.md, CLAUDE.md, project context and gitignore are project-owned. Existing files require a verified baseline before any replacement. Local divergence blocks an update. Removed paths are reported, never deleted. The workflow listed in the manifest is a candidate only; workflow security validation and sandbox approval are required before deployment. This initial contract does not enroll repositories or authorize production synchronization.
