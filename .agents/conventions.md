@@ -1,6 +1,6 @@
 # Engineering conventions
 
-Version 2.0. Apply only relevant sections; project-specific approved decisions take precedence over generic defaults, never over safety constraints.
+Version 2.1. Apply only relevant sections; project-specific approved decisions take precedence over generic defaults, never over safety constraints.
 
 - Prefer feature-based organization, clear interfaces and one canonical source for data. Avoid duplicate state and needless abstraction.
 - Use strict typing where available, validate external inputs and handle loading, empty, error, offline and timeout states. Never swallow errors; redact logs.
