@@ -1,16 +1,18 @@
 from pathlib import Path
 import shutil
+from shared_skills import registered, regular
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / ".agents" / "skills"
-TARGET = ROOT / ".claude" / "skills"
 
-def main():
-    for path in sorted(SOURCE.glob("*/SKILL.md")):
-        destination = TARGET / path.parent.name / "SKILL.md"
+def sync(root):
+    for name in registered(root):
+        source = regular(root, f".agents/skills/{name}/SKILL.md")
+        relative = f".claude/skills/{name}/SKILL.md"
+        destination = root / relative
+        if destination.resolve() != root.resolve() / relative or destination.is_symlink():
+            raise ValueError("Nonregular shared destination: " + relative)
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(path, destination)
-    # Never delete an unexpected skill automatically. Validator reports drift.
+        shutil.copyfile(source, destination)
 
 if __name__ == "__main__":
-    main()
+    sync(ROOT)

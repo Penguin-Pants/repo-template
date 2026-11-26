@@ -2,7 +2,10 @@
   "schema": 1,
   "managed": [
     ".agents/conventions.md",
+    ".agents/ownership.json",
     ".agents/project-tiers.md",
+    ".agents/shared/instructions.md",
+    ".agents/shared/skill-evaluations.json",
     ".agents/skills/README.md",
     ".agents/skills/analyzing-incidents/SKILL.md",
     ".agents/skills/assessing-productization/SKILL.md",
@@ -49,6 +52,7 @@
     ".claude/skills/reviewing-pull-requests/SKILL.md",
     ".claude/skills/upgrading-dependencies-and-apis/SKILL.md",
     ".github/workflows/skills-check.yml",
+    "scripts/shared_skills.py",
     "scripts/sync-skills.py",
     "scripts/validate-skills.py"
   ],
@@ -57,7 +61,11 @@
     "CLAUDE.md",
     ".gitignore",
     ".agents/skills/README.md",
-    ".github/workflows/skills-check.yml"
+    ".github/workflows/skills-check.yml",
+    ".agents/ownership.json",
+    ".agents/shared/instructions.md",
+    ".agents/shared/skill-evaluations.json",
+    "scripts/shared_skills.py"
   ],
   "project_owned": [
     "AGENTS.md",
