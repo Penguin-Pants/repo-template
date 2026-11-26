@@ -1,0 +1,38 @@
+name: Dispatch synchronization
+# Template-only. Not listed in .agents/ownership.json, so the controller never
+# synchronizes it. Repositories generated from the template skip it by guard.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.agents/**'
+      - '.claude/skills/**'
+      - 'scripts/**'
+      - '.github/workflows/skills-check.yml'
+permissions: {}
+concurrency:
+  # A newer template push supersedes a pending dispatch. The controller always
+  # reconciles against the latest trusted main revision, never this SHA.
+  group: dispatch-sync
+  cancel-in-progress: true
+jobs:
+  dispatch:
+    if: github.repository == 'Penguin-Pants/repo-template' && github.ref == 'refs/heads/main' && github.actor != 'penguin-pants-repo-sync[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Dispatch private controller
+        env:
+          DISPATCH_TOKEN: ${{ secrets.SYNC_DISPATCH_TOKEN }}
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          test -n "$DISPATCH_TOKEN" || { echo 'SYNC_DISPATCH_TOKEN is not configured'; exit 1; }
+          body=$(printf '{"ref":"main","inputs":{"mode":"apply","source_sha":"%s"}}' "$SOURCE_SHA")
+          code=$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
+            -H "Authorization: Bearer $DISPATCH_TOKEN" \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            https://api.github.com/repos/Penguin-Pants/repo-bootstrap/actions/workflows/sync.yml/dispatches \
+            -d "$body")
+          echo "dispatch HTTP $code for $SOURCE_SHA"
+          test "$code" = 204
