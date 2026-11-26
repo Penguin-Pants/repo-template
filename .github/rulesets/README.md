@@ -1,0 +1,3 @@
+# Repository rules
+
+GitHub templates copy files, not active rulesets. After initial commit, import default-branch.json in Settings > Rules > Rulesets or run `gh api --method POST repos/OWNER/REPO/rulesets --input .github/rulesets/default-branch.json` with an authorized administrative credential. Inspect existing rules first; do not create duplicates. Private repository support depends on GitHub plan. Never change visibility to work around this. Add required status checks only after the real CI job has run successfully. Verify the active ruleset and default-branch target after setup. Zero approvals supports solo work; no bypass actors are configured.
