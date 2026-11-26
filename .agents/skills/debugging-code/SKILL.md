@@ -33,3 +33,5 @@ If a fix is authorized, implement the smallest root-cause fix. Add or update a r
 For implementation, run relevant validation before `TWO-PASS REVIEW` on the complete diff. For diagnosis only, use analysis review. Handle findings under `AGENTS.md`.
 
 Finish with the root cause, fix, regression coverage, validation evidence and any remaining unverified risk.
+
+Synthetic sandbox test line.
