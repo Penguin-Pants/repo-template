@@ -1,0 +1,22 @@
+name: Template checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  template-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate baseline files
+        run: |
+          test -s AGENTS.md
+          test "$(tr -d '\r\n' < CLAUDE.md)" = '@AGENTS.md'
+          test -s README.md
+          test -s .gitignore
+          python3 -m json.tool .github/rulesets/default-branch.json >/dev/null
+          git diff --check HEAD
