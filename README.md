@@ -10,7 +10,7 @@ A technology-neutral starting point for solo and AI-assisted development.
 5. Apply the ruleset using the instructions in .github/rulesets/README.md.
 
 ## Standards
-AGENTS.md is the common instruction entry point; CLAUDE.md imports it. Detailed conventions and project tiers are under .agents. The tier definitions are proposed until confirmed. The template does not automatically modify repository settings or synchronize existing repositories.
+AGENTS.md is the common instruction entry point; CLAUDE.md imports it. Universal instructions live in .agents/shared/instructions.md; the project-owned AGENTS.md directs both agents to that file. Detailed conventions and project tiers are under .agents. The tier definitions are proposed until confirmed. The template does not automatically modify repository settings or synchronize existing repositories.
 
 ## Maintenance
 Update shared standards in this repository first, then propose changes in downstream repositories. Preserve project-specific content. Never publish private configuration or credentials.
@@ -18,3 +18,5 @@ Update shared standards in this repository first, then propose changes in downst
 ## Agent skills
 
 22 shared skills are installed for Codex and Claude Code. Edit canonical files under `.agents/skills/`, run `python scripts/sync-skills.py`, then `python scripts/validate-skills.py`. See `.agents/skills/README.md` and `docs/skill-evaluations.md`. Behavioral evaluations are defined but not yet executed.
+
+The canonical ownership manifest lists registered shared files, including the skill evaluation definitions. Other files are project-owned. The historical docs/skill-evaluations.json is retained; it is no longer the shared validator input.
